@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="css/styles.css">
+<script defer src="js/script.js"></script>
+<body>
+    <header>
+        <nav>
+            <h1>Farming Assistant</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="crop-suggestions.html">Crop Suggestions</a></li>
+                <li><a href="market-prices.html">Market Prices</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+<main>
+    <section class="form-section">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+            <button type="submit" class="cta-button">Send Message</button>
+        </form>
+        <div id="contactResult"></div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Farming Assistant</p>
+</footer>
+
+<script>
+    // Contact form validation
+const contactForm = document.getElementById("contactForm");
+const contactResult = document.getElementById("contactResult");
+
+contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const message = document.getElementById("message").value;
+
+    if (name === "" || message === "") {
+        contactResult.innerHTML = "<p>Please fill out all fields.</p>";
+    } else {
+        contactResult.innerHTML = `<p>Thank you, ${name}. Your message has been sent!</p>`;
+    }
+});
+
+</script>

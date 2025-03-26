@@ -1,0 +1,167 @@
+<link rel="stylesheet" href="css/styles.css">
+<script defer src="js/script.js"></script>
+<body>
+    <header>
+        <nav>
+            <h1>Farming Assistant</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="crop-suggestions.html">Crop Suggestions</a></li>
+                <li><a href="market-prices.html">Market Prices</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="crop-section">
+            <h2>Find the Best Crops for Your Region</h2>
+            <p>Select your location, soil type, and the current season to get crop suggestions:</p>
+
+            <form id="cropForm">
+                <label for="location">Location:</label>
+                <select id="location" name="location">
+                    <option value="north">North</option>
+                    <option value="south">South</option>
+                    <option value="east">East</option>
+                    <option value="west">West</option>
+                </select>
+
+                <label for="soilType">Soil Type:</label>
+                <select id="soilType" name="soilType">
+                    <option value="clay">Clay</option>
+                    <option value="sandy">Sandy</option>
+                    <option value="loamy">Loamy</option>
+                    <option value="silt">Silt</option>
+                    <option value="redsoil">Red Soil</option>
+                    <option value="forestsoil">Forest soil</option>
+                    <option value="blacksoil">Black soil</option>
+                    <option value="lateritesoil">Laterite soil</option>
+                </select>
+
+                <label for="season">Season:</label>
+                <select id="season" name="season">
+                    <option value="summer">Summer</option>
+                    <option value="winter">Winter</option>
+                    <option value="monsoon">Monsoon</option>
+                    <option value="spring">Spring</option>
+                </select>
+
+                <button type="button" id="getSuggestionsBtn">Get Crop Suggestions</button>
+            </form>
+
+            
+            <div id="suggestions">
+                
+            </div>
+        </section>
+    </main>
+
+<footer>
+    <p>&copy; 2024 Farming Assistant</p>
+</footer>
+
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+    const suggestionsDiv = document.getElementById("suggestions");
+    const getSuggestionsBtn = document.getElementById("getSuggestionsBtn");
+
+    
+    getSuggestionsBtn.addEventListener("click", function() {
+       
+        const location = document.getElementById("location").value;
+        const soilType = document.getElementById("soilType").value;
+        const season = document.getElementById("season").value;
+
+        
+        const suggestions = getCropSuggestions(location, soilType, season);
+
+        
+        displaySuggestions(suggestions);
+    });
+
+    
+    function getCropSuggestions(location, soilType, season) {
+        const cropData = {
+            north: {
+                clay: {
+                    summer: ["Wheat", "Barley", "Pumpkins", "Rice", " Green beans", "Cabbage"],
+                    winter: ["Mustard", "Chickpeas","Buckwheat", "Oats"],
+                    monsoon: ["Rice", "Maize"],
+                    spring: ["Peas", "Carrots", "Squash", "Radishes"]
+                },
+                sandy: {
+                    summer: ["Bajra", "Jowar", "Sweet Potatoes"],
+                    winter: ["Carrot", "Potato", "Sunflower"],
+                    monsoon: ["Groundnut", "Sugarcane", "Bottle gourd", "Fenugreek"],
+                    spring: ["Cucumber", "Melons", "Carrots", "Onions"]
+                }
+            },
+            south: {
+                loamy: {
+                    summer: ["Cotton", "Tomato", "Wheat", "Oilseeds"],
+                    winter: ["Cauliflower", "Potato", "Mustard", "Chickpea", "Spinach"],
+                    monsoon: ["Banana", "Coffee", "Mung beans"],
+                    spring: ["Pumpkin", "Brinjal", "Peppers", "Strawberries"]
+                },
+                silt: {
+                    summer: ["Sunflower", "Soybean", "Wheat"],
+                    winter: ["Garlic", "Wheat", "Cucumber", "Potatoes"],
+                    monsoon: ["Rice", "Corn", "Maize"],
+                    spring: ["Bottle Gourds", "Capsicum", "Sugar beet"]
+                }
+            },
+            east: {
+                redsoil: {
+                    summer: ["Tomatoes", "Rice", "Potatoes"],
+                    winter: ["Spinach", "Lettuce",],
+                    monsoon: ["Rice", "Gourds", "Pulses"],
+                    spring: ["Wheat", "Mustard", "Gram", "Cotton"]
+                },
+                forestsoil: {
+                    summer:["Coffee", "Barley"],
+                    winter:["Rabi crops"],
+                    monsoon:["Spices", "Kharif crops"],
+                    spring:["Oats", "Tea", "Lettuce"]
+                }
+            },
+            west: {
+                blacksoil: {
+                    summer:["Brinjal", "Watermelon", "Pumpkin"],
+                    winter:["Linseed", "Wheat", "Sunflower"],
+                    monsoon:["Sugarcane", "Jowar"],
+                    spring:["Green peas", "Chilly"]
+                },
+                lateritesoil: {
+                    summer:["Banana", "Ginger", "Rubber"],
+                    winter:["Cashew nuts", "Coconut", "Coffee", "Tea"],
+                    monsoon:["Pineapple", "Pepper", "Rice"],
+                    spring:["Rubber", "Arecanut", "Pulse", "Wheat", "Cinchona"]
+                }
+            }
+        };
+
+    
+        if (cropData[location] && cropData[location][soilType] && cropData[location][soilType][season]) {
+            return cropData[location][soilType][season];
+        } else {
+            return ["No suggestions available for the selected criteria."];
+        }
+    }
+
+    
+    function displaySuggestions(suggestions) {
+        
+        suggestionsDiv.innerHTML = "";
+
+        
+        suggestions.forEach(crop => {
+            const p = document.createElement("p");
+            p.textContent = crop;
+            suggestionsDiv.appendChild(p);
+        });
+    }
+});
+
+</script>

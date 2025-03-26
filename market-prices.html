@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="css/styles.css">
+<script defer src="js/script.js"></script>
+<body>
+    <header>
+        <nav>
+            <h1>Farming Assistant</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="crop-suggestions.html">Crop Suggestions</a></li>
+                <li><a href="market-prices.html">Market Prices</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class ="market-section">
+            <h2>Current Market Prices</h2>
+            <p>Here are the latest market prices for various crops:</p>
+
+            
+            <div class="table-wrapper">
+                <table id="marketPricesTable">
+                    <thead>
+                        <tr>
+                            <th>Crop</th>
+                            <th>Price (per kg)</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+<footer>
+    <p>&copy; 2024 Farming Assistant</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    
+    const marketPrices = [
+        { crop: "Wheat", price: "₹25", location: "Coimbatore" },
+        { crop: "Rice", price: "₹35", location: "Madurai" },
+        { crop: "Corn", price: "₹20", location: "Tirchy" },
+        { crop: "Sugarcane", price: "₹40", location: "Salem" },
+        { crop: "Cotton", price: "₹60", location: "Coimbatore" },
+
+        { crop: "Wheat", price: "₹25", location: "Tirupur" },
+        { crop: "Rice", price: "₹35", location: "Chennai" },
+        { crop: "Corn", price: "₹20", location: "Coimbatore" },
+        { crop: "Sugarcane", price: "₹40", location: "Dindugal" },
+        { crop: "Cotton", price: "₹60", location: "Erode" },
+
+        { crop: "Carrot", price: "₹25", location: "Ooty" },
+        { crop: "Tea plant", price: "₹35", location: "Ooty" },
+        { crop: "Corn", price: "₹20", location: "Chennai" },
+        { crop: "Sugarcane", price: "₹40", location: "Trichy" },
+        { crop: "Cotton", price: "₹60", location: "Tirupur" },
+           
+    ];
+
+    
+    const tableBody = document.querySelector("#marketPricesTable tbody");
+
+    
+    marketPrices.forEach(function(item) {
+        
+        const row = document.createElement("tr");
+
+        
+        const cropCell = document.createElement("td");
+        cropCell.textContent = item.crop;
+        
+        const priceCell = document.createElement("td");
+        priceCell.textContent = item.price;
+
+        const locationCell = document.createElement("td");
+        locationCell.textContent = item.location;
+
+        
+        row.appendChild(cropCell);
+        row.appendChild(priceCell);
+        row.appendChild(locationCell);
+
+        
+        tableBody.appendChild(row);
+    });
+});
+
+</script>
+

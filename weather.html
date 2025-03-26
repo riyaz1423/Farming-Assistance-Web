@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather - Farming Assistant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js/script.js"></script> 
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <h1>Farming Assistant</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="crop-suggestions.html">Crop Suggestions</a></li>
+                <li><a href="market-prices.html">Market Prices</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Check Your Local Weather</h2>
+            <form id="weatherForm">
+                <label for="location">Enter Location:</label>
+                <input type="text" id="location" name="location" placeholder="City or Region" required>
+                <button type="submit" class="cta-button">Get Weather</button>
+            </form>
+            <div id="weatherResult" class="weather-result"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Farming Assistant</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    
+    const weatherForm = document.getElementById("weatherForm");
+    const weatherResult = document.getElementById("weatherResult");
+
+    weatherForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const location = document.getElementById("location").value;
+        
+        if (location === "") {
+            weatherResult.innerHTML = "<p>Please enter a location.</p>";
+            return;
+        }
+        
+        
+        const apiKey = '252c31ce4f552e6687bece2034270852'; 
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+        
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            
+            if (data.cod === "404") {
+                weatherResult.innerHTML = `<p>Location not found.</p>`;
+            } else {
+                const { name, main, weather } = data;
+                weatherResult.innerHTML = `
+                    <h3>Weather in ${name}</h3>
+                    <p>Temperature: ${main.temp}°C</p>
+                    <p>Condition: ${weather[0].description}</p>
+                `;
+            }
+        } catch (error) {
+            weatherResult.innerHTML = `<p>Error fetching weather data. Please try again later.</p>`;
+        }
+    });
+});
+
+    </script>
+</body>
+</html>
